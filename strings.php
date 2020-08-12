@@ -84,13 +84,16 @@ echo "<p>{$res}</p>";
 // 9
 echo "<b>9. </b>";
 
+// mai ok cu str_shuffle(), random_int()
+
 $source = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcefghijklmnopqrstuvwxyz";
-$numberChars = 10 + date_timestamp_get(date_create()) % 11;
+$microtimeLength = 10 + time() % 11;
+$microtime = time() % strlen($source);
 $password = "";
 
-for($i = 0; $i < $numberChars; ++$i) {
-    echo microtime() . "<br/>";
-    $genChar = $source[date_timestamp_get(date_create()) % strlen($source)];
+for($i = 0; $i < $microtimeLength; ++$i) {
+
+    $genChar = $source[(int)date('s', $microtime) % ($microtime - $i)];
     $password .= $genChar;
 }
 
